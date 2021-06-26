@@ -1,1 +1,1 @@
-Please see the readme.md file.
+This is the readme file
