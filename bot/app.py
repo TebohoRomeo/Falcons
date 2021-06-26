@@ -1,5 +1,8 @@
 from flask import Flask
 from flask import request
+from pprint import pprint
+import json
+import emoji
 import requests
 from twilio.twiml.messaging_response import MessagingResponse
 
@@ -13,15 +16,27 @@ def bot():
   resp = MessagingResponse()
   msg = resp.message()
   responded = False
-  if 'quote' in incoming_msg:
+  if ['hey', 'hello', 'sho', 'molo', 'hy'] in incoming_msg:
       # return a quote
-      r = requests.get('https://api.quotable.io/random')
-      if r.status_code == 200:
-          data = r.json()
-          quote = f'{data["content"]} ({data["author"]})'
-      else:
-          quote = 'I could not retrieve a quote at this time, sorry.'
-      msg.body(quote)
+      response = emoji.emojize("""
+*Hi! I am the Water Bot* :wave:
+How can I help :wink:
+You can give me the following commands:
+:black_small_square: *'water tips'*: Fing out how to be better with water :rocket:
+:black_small_square: *'report leakes'*: Help us fix the problem :wrench:
+:black_small_square: *'news'*: Latest news in South Africa. :newspaper:
+:black_small_square: *'offers'*: Find the best offers :gift_heart:
+""", use_aliases=True)
+
+      elif incoming_msg == 'water tips':
+          r = requests.get('https://www.fundi.co.za/fundiconnect/10-easy-tips-to-save-water/') # add website link
+            
+        if r.status_code == 200:
+            data = r.json()
+            quote = f'{data["content"]} ({data["author"]})'
+        else:
+            quote = 'I could not retrieve water tips at this time, sorry. :cry:'
+      msg.body(response)
       responded = True
   if 'cat' in incoming_msg:
       # return a cat pic
@@ -34,4 +49,4 @@ def bot():
 
 
 if __name__ == '__main__':
-  app.run(debug=True)
+  app.run(debug=False)
