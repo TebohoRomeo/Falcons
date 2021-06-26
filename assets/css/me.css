@@ -77,7 +77,6 @@ a:hover {
   border-style: none;
   box-shadow: none; }
 
-/* -- Content -- */
 @-webkit-keyframes fadein {
   from {
     opacity: 0; }
@@ -288,4 +287,5 @@ body.page-template-page-fullsingle-me.me-video {
     width: 100%;
     height: 100%; }
   body.page-template-page-fullsingle-me.me-video .fs-me {
-    background-color: rgba(0, 0, 0, 0.6); }
+    background-color: rgba(0, 0, 0, 0.6); 
+  }
